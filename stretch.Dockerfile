@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 ARG RUNTIME_DEPS='ca-certificates libpng-dev libjpeg-dev libwebp-dev libtiff5-dev libopenexr-dev libopenblas-dev libx11-dev ffmpeg'
-ARG BUILD_DEPS='apt-utils wget unzip cmake build-essential python pkg-config deb-multimedia-keyring libavutil-dev libavcodec-dev libavformat-dev libswscale-dev libavresample-dev'
+ARG BUILD_DEPS='apt-utils wget unzip cmake build-essential pkg-config deb-multimedia-keyring libavutil-dev libavcodec-dev libavformat-dev libswscale-dev libavresample-dev'
 ARG LIB_PREFIX='/usr/local'
 ARG OPENCV_VERSION
 
