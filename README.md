@@ -1,4 +1,4 @@
-# docker-opencv
+# docker-ffmpeg-opencv
 
 Docker image with ffmpeg and compiled OpenCV library (with ffmpeg support)
 
