@@ -63,7 +63,7 @@ RUN echo "OpenCV: ${OPENCV_VERSION}" \
     -D CMAKE_INSTALL_PREFIX=$LIB_PREFIX \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules" \
     && cmake $opencv_cmake_flags .. \
-    && make -j $(nproc) \
+    && make -j $(getconf _NPROCESSORS_ONLN) \
     && cd /opencv/opencv/build \
     && make install \
     && cd / \
