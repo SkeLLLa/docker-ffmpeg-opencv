@@ -1,7 +1,7 @@
 FROM debian:stretch
 
-ARG RUNTIME_DEPS='ca-certificates libpng-dev libjpeg-dev libwebp-dev libtiff5-dev libopenexr-dev libopenblas-dev libx11-dev ffmpeg'
-ARG BUILD_DEPS='apt-utils wget unzip cmake build-essential pkg-config deb-multimedia-keyring libavutil-dev libavcodec-dev libavformat-dev libswscale-dev libavresample-dev'
+ARG RUNTIME_DEPS='ca-certificates deb-multimedia-keyring libpng-dev libjpeg-dev libwebp-dev libtiff5-dev libopenexr-dev libopenblas-dev libx11-dev ffmpeg'
+ARG BUILD_DEPS='deb-multimedia-keyring apt-utils wget unzip cmake build-essential pkg-config libavutil-dev libavcodec-dev libavformat-dev libswscale-dev libavresample-dev'
 ARG LIB_PREFIX='/usr/local'
 ARG OPENCV_VERSION
 
@@ -72,6 +72,6 @@ RUN echo "OpenCV: ${OPENCV_VERSION}" \
     && ldconfig \
     && apt-get purge -y --auto-remove $BUILD_DEPS \
     && apt-get autoremove -y --purge \
-    && apt-get install -y $RUNTIME_DEPS --no-install-recommends \
+    && apt-get install -y $RUNTIME_DEPS --no-install-recommends --allow-unauthenticated \
     && rm -rf /var/lib/apt/lists/* /usr/share/man /usr/share/doc /usr/local/share/man /tmp/*
     
