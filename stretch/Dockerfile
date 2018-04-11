@@ -3,9 +3,9 @@ FROM debian:stretch
 ARG RUNTIME_DEPS='ca-certificates deb-multimedia-keyring libpng-dev libjpeg-dev libwebp-dev libtiff5-dev libopenexr-dev libopenblas-dev libx11-dev ffmpeg'
 ARG BUILD_DEPS='deb-multimedia-keyring apt-utils wget unzip cmake build-essential pkg-config libavutil-dev libavcodec-dev libavformat-dev libswscale-dev libavresample-dev'
 ARG LIB_PREFIX='/usr/local'
-ARG OPENCV_VERSION
+ARG VERSION
 
-ENV OPENCV_VERSION=${OPENCV_VERSION} \
+ENV OPENCV_VERSION=${VERSION} \
     LIB_PREFIX=${LIB_PREFIX} \
     FFMPEG_PATH='/usr/bin/ffmpeg' \
     FFPROBE_PATH='/usr/bin/ffprobe'
