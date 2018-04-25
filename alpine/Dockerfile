@@ -11,7 +11,7 @@ ENV OPENCV_VERSION=${VERSION} \
     FFPROBE_PATH='/usr/bin/ffprobe'
 
 RUN echo "OpenCV: ${OPENCV_VERSION}" \
-    && echo '${LIB_PREFIX}/lib64' | cat - /usr/glibc-compat/etc/ld.so.conf > tmp.ld.conf \
+    && echo "${LIB_PREFIX}/lib64" | cat - /usr/glibc-compat/etc/ld.so.conf > tmp.ld.conf \
     && mv tmp.ld.conf /usr/glibc-compat/etc/ld.so.conf \
     && apk add -u --no-cache --virtual .build-dependencies $BUILD_DEPS \
     && wget -q https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.zip -O opencv.zip \
