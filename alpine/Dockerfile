@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-glibc:latest
 
-ARG RUNTIME_DEPS='libpng libjpeg-turbo libwebp tiff openexr jasper openblas libx11 zlib ffmpeg'
-ARG BUILD_DEPS='wget unzip cmake build-base python linux-headers libpng-dev libjpeg-turbo-dev libwebp-dev tiff-dev openexr-dev jasper-dev openblas-dev libx11-dev zlib-dev ffmpeg-dev'
+ARG RUNTIME_DEPS='libpng libjpeg-turbo libwebp tiff openexr jasper openblas zlib ffmpeg'
+ARG BUILD_DEPS='wget unzip cmake build-base python linux-headers libpng-dev libjpeg-turbo-dev libwebp-dev tiff-dev openexr-dev jasper-dev openblas-dev zlib-dev ffmpeg-dev'
 ARG LIB_PREFIX='/usr/local'
 ARG VERSION
 
@@ -11,9 +11,9 @@ ENV OPENCV_VERSION=${VERSION} \
     FFPROBE_PATH='/usr/bin/ffprobe'
 
 RUN echo "OpenCV: ${OPENCV_VERSION}" \
-    && echo "${LIB_PREFIX}/lib64" | cat - /usr/glibc-compat/etc/ld.so.conf > tmp.ld.conf \
-    && mv tmp.ld.conf /usr/glibc-compat/etc/ld.so.conf \
-    && apk add -u --no-cache --virtual .build-dependencies $BUILD_DEPS \
+    && rm -rf /usr/local/lib && ln -s /usr/local/lib64 /usr/local/lib \
+    && apk add -u --no-cache ${RUNTIME_DEPS} \
+    && apk add -u --no-cache --virtual .build-dependencies ${BUILD_DEPS} \
     && wget -q https://github.com/Itseez/opencv/archive/${OPENCV_VERSION}.zip -O opencv.zip \
     && wget -q https://github.com/Itseez/opencv_contrib/archive/${OPENCV_VERSION}.zip -O opencv_contrib.zip \
     && mkdir /opencv \
@@ -60,6 +60,7 @@ RUN echo "OpenCV: ${OPENCV_VERSION}" \
     -D BUILD_opencv_ts=OFF \
     -D BUILD_opencv_xobjdetect=OFF \
     -D BUILD_opencv_xphoto=OFF \
+    -D WITH_VTK=OFF \
     -D CMAKE_INSTALL_PREFIX=$LIB_PREFIX \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules" \
     && cmake $opencv_cmake_flags .. \
